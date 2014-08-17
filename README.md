@@ -1,4 +1,4 @@
-css-analyser
+ascss-analyser
 ============
 
 CSS Analyser
