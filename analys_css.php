@@ -32,15 +32,19 @@ $css_end = strpos($html,'</style>');
 $css_start+=7;
 $style = trim(substr($html, $css_start, $css_end-$css_start));  
 
-$comment_pattern = '/\/\*[A-Za-z0-9\s,\s\'\"\*-@]+\*\//';        
+$comment_pattern = '/\/\*[A-Za-z0-9\s,\s\'\"\*-\@\!.|\/]+\*\//';          
 $block_pattern = '/(({from)|){[A-Za-z-\s:;0-9.,=%!\'",\-\+?\/\\#()_]+}(to([\s]+|){[A-Za-z-\s:;0-9.,=%!\'",\-\+?\/\\#()_]+}([\s]+|)}|)/';
+
+// Remove all comment, style tag and space
+$html = preg_replace('(<style>|</style>)', '', $html);        
+$html = preg_replace($comment_pattern, '', $html); 
 
 preg_match_all($block_pattern, $html, $matches, PREG_OFFSET_CAPTURE);
 $blocks = array();    
 
 foreach ($matches as $block) {
-    $blocks[]=$block;   
-} 
+    $blocks[]=$block;     
+}  
 
 print_r($blocks[0]);    
 
