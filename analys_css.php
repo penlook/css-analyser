@@ -29,7 +29,7 @@ $input = __DIR__.'/input/text_01.html';
 $html = file_get_contents($input); 
 $css_start = strpos($html,'<style>');
 $css_end = strpos($html,'</style>');
-$css_start+=7;
+$css_start += 7;
 $style = trim(substr($html, $css_start, $css_end-$css_start));  
 
 $comment_pattern = '/\/\*[A-Za-z0-9\s,\s\'\"\*-\@\!.|\/]+\*\//';          
@@ -51,19 +51,12 @@ $selectors = array();
 $n = count($blocks);
 $start = 0;
 
-
-
-
 for ($i = 0; $i < $n; $i++)  
 {
 	$block = $blocks[0][$i][0];   
 	$index = $blocks[0][$i][1];
 
-	$selector = substr($html, $start, $index - $start);  
-
-	echo "START : $start\n";
-	//echo "LENGTH: ".strlen($selector). "\n";       
-
+	$selector = substr($html, $start, $index - $start); 
 	$start = $index + strlen($block);     
 
 	$selectors[] = array(   
@@ -71,7 +64,8 @@ for ($i = 0; $i < $n; $i++)
 		'value' => trim($block)
 	);
 }
-print_r($selectors);
+
+print_r($selectors);        
 
 
 
