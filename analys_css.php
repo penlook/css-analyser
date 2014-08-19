@@ -25,3 +25,19 @@
  *
  */
 
+$input = __DIR__.'/input/text.html';
+$html = file_get_contents($input);
+$css_start = strpos($html,'<style>');
+$css_end = strpos($html,'</style>');
+$css_start+=7;
+$style = trim(substr($html, $css_start, $css_end-$css_start));
+
+$block_pattern = '/(({from)|){[A-Za-z-\s:;0-9.%!\',-?\/#()_"]+}(to([\s]+|){[A-Za-z-\s:;0-9.%!,-?\/#()_"]+}([\s]+|)}|)/';
+preg_match_all($block_pattern, $html, $matches, PREG_SET_ORDER);
+
+foreach ($matches as $block) {
+    print_r($block);
+
+}
+
+
