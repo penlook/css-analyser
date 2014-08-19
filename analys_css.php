@@ -51,18 +51,26 @@ $selectors = array();
 $n = count($blocks);
 $start = 0;
 
+
+
+
 for ($i = 0; $i < $n; $i++)  
 {
 	$block = $blocks[0][$i][0];   
 	$index = $blocks[0][$i][1];
-	$selector = trim(substr($html, $start, $index)); 
-	$start += $index;        
-	$selectors[] = array( 
-		'key'   => $selector,
-		'value' => $block
+
+	$selector = substr($html, $start, $index - $start);  
+
+	echo "START : $start\n";
+	//echo "LENGTH: ".strlen($selector). "\n";       
+
+	$start = $index + strlen($block);     
+
+	$selectors[] = array(   
+		'key'   => trim($selector),
+		'value' => trim($block)
 	);
 }
-
 print_r($selectors);
 
 
