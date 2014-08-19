@@ -46,7 +46,24 @@ foreach ($matches as $block) {
     $blocks[]=$block;     
 }  
 
-print_r($blocks[0]);    
+// Scan selector
+$selectors = array();
+$n = count($blocks);
+$start = 0;
+
+for ($i = 0; $i < $n; $i++)  
+{
+	$block = $blocks[0][$i][0];   
+	$index = $blocks[0][$i][1];
+	$selector = trim(substr($html, $start, $index)); 
+	$start += $index;        
+	$selectors[] = array( 
+		'key'   => $selector,
+		'value' => $block
+	);
+}
+
+print_r($selectors);
 
 
 
